@@ -47,6 +47,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'rack-cors'
 end
 
 ruby "2.2.0"
