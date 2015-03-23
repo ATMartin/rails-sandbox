@@ -13,6 +13,6 @@ class ArticlesController < ApplicationController
 
   def echo
     print params
-    render plain: params.inspect
+    render json: params
   end
 end
