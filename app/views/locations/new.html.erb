@@ -1,0 +1,33 @@
+<%= form_for :location, url: locations_path do |fb| %>
+  <p>
+    <%= fb.label :name %>
+    <br>
+    <%= fb.text_field :name %>
+  </p>
+  
+  <p>
+    <%= fb.label :address %>
+    <br>
+    <%= fb.text_field :address %>
+  </p>
+
+  <p>
+    <%= fb.label :description %>
+    <br>
+    <%= fb.text_area :description %>
+  </p>
+
+  <p>
+    <%= fb.check_box :feature24hr  %><%= fb.label :feature24hr %>
+    <br>
+    <%= fb.check_box :featurePower %><%= fb.label :featurePower %>
+    <br>
+    <%= fb.check_box :featureSeating %><%= fb.label :featureSeating %>
+  </p>
+  
+  <p>
+    <%= fb.submit %>
+  </p>
+
+
+<% end %>

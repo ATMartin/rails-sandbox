@@ -9,12 +9,20 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    print params
-    render plain: params[:article].inspect
+    @article = Article.new(article_params)
+
+    @article.save
+    render json: @article
+    #redirect_to @article
   end
 
   def echo
     print params
     render json: params
   end
+
+  private
+    def article_params
+      params.require(:article).permit(:title, :text)
+    end
 end
