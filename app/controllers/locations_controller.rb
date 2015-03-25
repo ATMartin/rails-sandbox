@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
   end
   
   def show
-    @location = Location.find(params[:id])
+    @location = Location.where(name: params[:id]).take
     render json: @location
   end
   
