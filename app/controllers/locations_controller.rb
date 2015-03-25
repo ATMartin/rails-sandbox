@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   
   def new
-    
+  
   end
 
   def create
@@ -14,6 +14,23 @@ class LocationsController < ApplicationController
     @location.save
     render json: @location
   end
+  
+  def show
+    @location = Location.find(params[:id])
+    render json: @location
+  end
+  
+  def index
+    @locations = Location.all
+    render json: @locations
+  end
+  
+  def destroy
+    @location = Location.find(params[:id])
+    @location.destroy
+
+    redirect_to locations_path
+  end 
 
   private
     def location_params
