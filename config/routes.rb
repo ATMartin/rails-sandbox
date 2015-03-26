@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   
   post 'articles/echo' => 'articles#echo'
 
-  post 'locations/new' => 'locations#new'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

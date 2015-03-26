@@ -1,33 +1,43 @@
 class LocationsController < ApplicationController
   skip_before_action :verify_authenticity_token
-   
-  def new
-    locationData = JSON.parse(params.except(:controller, :action).keys.first)
-    @location = Location.new
-    @location.description = locationData['description']
-    @location.name = locationData['name']
-    @location.loc[0] = locationData['loc']['latitude']
-    @location.loc[1] = locationData['loc']['longitude']
-
-    @location.save
-    render :json => @location 
-  end
 
   def create
-    @location = Location.new(location_params)
+    locationData = JSON.parse(params.except(:controller, :action).keys.first)
+    @location = Location.new
+    
+    @location.name = locationData['name']
+    @location.description = locationData['description']
+    @location.address = locationData['address']
+    @location.loc[0] = locationData['loc']['latitude']
+    @location.loc[1] = locationData['loc']['longitude']
+    @location.feature24hr = locationData['feature24hr']
+    @location.featureSeating = locationData['featureSeating']
+    @location.featurePower = locationData['featurePower']
 
-    @location.features.push("24hr") if (params[:location][:feature24hr] == '1')
-    @location.features.push("power") if (params[:location][:featurePower] == '1')
-    @location.features.push("seating") if (params[:location][:featureSeating] == '1')
-   
-    @location.loc[0] = params[:loc[0]]
-    @location.loc[1] = params[:loc[1]]
     @location.save
     render json: @location
   end
-  
+ 
+  def update
+    # ERROR here - fails to parse when the module hits my :loc definition (it's an array).
+    #  What gives, man? :-(
+    locationData = JSON.parse(params.except(:controller, :action).keys.first)
+    @location = Location.find(params[:id])
+    @location.name = locationData['name']
+    @location.description = locationData['description']
+    @location.address = locationData['address']
+    @location.loc[0] = locationData['loc'][0]
+    @location.loc[1] = locationData['loc'][1]
+    @location.feature24hr = locationData['feature24hr']
+    @location.featureSeating = locationData['featureSeating']
+    @location.featurePower = locationData['featurePower']
+
+    @location.save
+    render json: @location
+  end
+
   def show
-    @location = Location.where(name: params[:id]).take
+    @location = Location.find(params[:id])
     render json: @location
   end
   
