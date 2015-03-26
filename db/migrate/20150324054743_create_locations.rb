@@ -5,7 +5,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :address
       t.text :description
       t.text :features, array: true, default: []
-      t.decimal :loc, array: true, default: []
+      t.float :loc, array: true, default: []
 
       t.timestamps null: false
     end
