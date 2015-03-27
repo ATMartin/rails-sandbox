@@ -48,6 +48,7 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'rack-cors'
+  gem 'twilio-ruby'
 end
 
 ruby "2.2.0"

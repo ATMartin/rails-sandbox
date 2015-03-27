@@ -19,7 +19,12 @@ Rails.application.routes.draw do
   #   resources :products
   
   resources :articles
-  resources :locations
+  resources :locations do
+    collection do
+      post 'sms' => 'locations#share_sms'
+      post 'email' => 'locations#share_email'
+    end
+  end
   # Example resource route with options:
   #   resources :products do
   #     member do

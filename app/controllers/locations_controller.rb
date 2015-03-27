@@ -1,3 +1,5 @@
+require 'twilio-ruby'
+
 class LocationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -51,6 +53,30 @@ class LocationsController < ApplicationController
     @location.destroy
 
     redirect_to locations_path
+  end
+  
+  def share_sms
+    Twilio.configure do |config|
+      config.account_sid = 'AC5ea618dacee0512f771ca416a4072000' 
+      config.auth_token = '295c76eb5afad2daa90e4912d8bfd26f'
+    end
+   
+    begin
+      @client = Twilio::REST::Client.new
+      @client.messages.create({
+        from: '+18033888119',
+        to: params['recNumber'],
+        body: params['messageBody'] 
+      })
+      render json: { "type" => "Success", "message" => "SMS successfully sent!"}
+    rescue Twilio::REST::RequestError => e
+      render json: { "type" => "Error", "message" => "ERROR - #{e.message}"}
+    end
+    
+  end
+  
+  def share_email
+    render :json => {"message" => "ALL YOUR MAILZ ARE BELONG TO US"} 
   end 
 
   private
